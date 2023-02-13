@@ -1,7 +1,17 @@
-* - Ideal features but not necessarily required
+### FEMA Mock Application
+<p>FEMA is a government organization that aids in natural disasters. A few years ago there was a catastrophic<br>
+hurricane that damaged the lives of many people. FEMA was able to raise a lot of volunteers to help handle the<br>
+damage. There was an issue however, while they had a lot of help, FEMA did not have a way to assign various jobs<br>
+to the volunteers. I figured it would be a good coding challenge to create a "mock website" for them that could be able<br>
+to help spread the workload.<br></p>
+
+
+
+
+* - Ideal features
 
 | Technologies |
--ReactJS or SolidJS... can't decide
+-Flask can't decide
 -Perhaps nodeJS or Python with Flask for the backend
 -Chrome Dev Tools ( The best dev tools :) )
 
