@@ -5,7 +5,7 @@ damage. There was an issue however, while they had a lot of help, FEMA did not h
 to the volunteers. I figured it would be a good coding challenge to create a "mock website" for them that<br> 
 tracks the below positions as well as their needs.<br></p>
 
-| Login | <br>
+| Login Page  | <br> (In progress)
 -All users must log in, they specify their role when creating an account <br>
 
 | Technologies |<br>
@@ -13,7 +13,7 @@ tracks the below positions as well as their needs.<br></p>
 -Bootstrap with some personalizations in scss<br>
 -Chrome Dev Tools ( The best dev tools :) )<br>
 
-| FEMA | (6-8 hours... need to learn more about databases)<br>
+| FEMA | (6-8 hours... need to learn more about databases and mySQL)<br>
 -Input items/jobs into database<br>
 -3 databases, items, jobs, and commitments<br>
 -Government organization<br>
@@ -27,11 +27,11 @@ tracks the below positions as well as their needs.<br></p>
 -When the donations of the essential items (e.g. water, food, clothes, materials to rebuild)<br>
 -Have the ability to make a new distribution *<br>
 
-| Drivers | (1 Hour)<br>
+| Drivers Page | (1 Hour)<br>
 -Take items to commitments<br>
 -Paid position<br>
 
-| Workers | (1 Hour)<br>
+| Workers Page | (1 Hour)<br>
 -Jobs go to workers<br>
 -Volunteers
 
@@ -44,7 +44,7 @@ tracks the below positions as well as their needs.<br></p>
 
 | Commitments | (1-2 Hours)<br>
 -Things that have been committed to be donated but are en route (i.e. someone said they will donate 30 shirts <br>but it'll take time to ship)<br>
--Maybe can be lost in transit? Or maybe not that deep.<br>
+-Maybe can be lost in transit? Or maybe not that in depth.<br>
 
 | Technical Requirements | (Figuring out how to set each thing up with these requirements will take more time for me...)<br>
 -Must be hosted so the site can actually be accessed and save state or something<br>
@@ -55,4 +55,5 @@ tracks the below positions as well as their needs.<br></p>
 -ALL positions must be registered, including the distribution center.<br>
 
 
-Total theoretical time ~19 hours
+Total theoretical time ~21 hours
+Gannt Chart

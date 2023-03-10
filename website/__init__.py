@@ -2,7 +2,7 @@ from flask import Flask
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'a'
+    app.config['SECRET_KEY'] = 'abc123'
 
     # Must import our various views in our init file
     from .views import views
