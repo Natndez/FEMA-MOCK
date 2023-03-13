@@ -43,6 +43,7 @@ def sign_up():
         last_name = request.form.get('lastName')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
+        occupation = request.form.get('occupation')
 
         user = User.query.filter_by(email=email).first()
 
@@ -62,7 +63,7 @@ def sign_up():
         # Succesful User creation
         else:
             # Add new user to the database
-            new_user = User(email=email, first_name=first_name, last_name=last_name, password=generate_password_hash(password1, method='sha256'))
+            new_user = User(email=email, first_name=first_name, last_name=last_name, password=generate_password_hash(password1, method='sha256'), role=occupation)
             db.session.add(new_user)
             db.session.commit()
             login_user(user, remember=True)
