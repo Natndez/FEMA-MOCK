@@ -24,3 +24,4 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(150))
     # Setting up relationship to Note
     notes = db.relationship('Note')
+    
