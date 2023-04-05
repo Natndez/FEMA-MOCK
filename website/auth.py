@@ -66,7 +66,7 @@ def sign_up():
             new_user = User(email=email, first_name=first_name, last_name=last_name, password=generate_password_hash(password1, method='sha256'), role=occupation)
             db.session.add(new_user)
             db.session.commit()
-            login_user(user, remember=True)
+            # login_user(user, remember=False)
             
             # Flash message stating account creation was successful
             flash('Account created!', category='success')
