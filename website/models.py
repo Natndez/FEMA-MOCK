@@ -8,6 +8,8 @@ class Item(db.Model):
     name = db.Column(db.String(20))
     quantity = db.Column(db.Integer)
     requested = db.Column(db.Integer)
+    user = db.Column(db.String(50))
+    status = db.Column(db.String(20))
     
 
 

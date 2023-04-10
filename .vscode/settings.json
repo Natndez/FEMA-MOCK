@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "Fema",
+            "database": "${workspaceFolder:fema}/instance/database.db"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}

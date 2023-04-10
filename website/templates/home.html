@@ -2,12 +2,54 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} 
 
 {% block content %}
+<head>
+    <script>
+        if (performance.navigation.type == 1) {
+            window.location.href = "/"
+        }
+    </script>
+</head>
+
 <h2>{{ current_user.role }} Home</h2>
 {% if current_user.role == "Worker" %}
 <p>Worker screen</p>
 {% endif %}
+
+<!-- DRIVER SCREEN -->
 {% if current_user.role == "Driver" %}
-<p>Driver screen</p>
+<form method="POST">
+    <h3>Items to deliver:</h3>
+    <select class="form-select" name="item_id">
+        {% for item in items %}
+            {% if item.status == "Awaiting Driver" %}
+                <option value="{{ item.id }}">{{ item.name }} - {{ item.quantity }} available</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+
+    <br><br><br>
+    <h3>Select Destination:</h3>
+    <div>
+        <input class="form-check-input" type="radio" name="location" value="Chicago, IL"> Chicago, IL Distribution Center
+    </div>
+    <div>
+        <input class="form-check-input" type="radio" name="location" value="Miami, FL"> Miami, FL Distribution Center
+    </div>
+    <div>
+        <input class="form-check-input" type="radio" name="location" value="Omaha, Nebraska"> Omaha, Nebraska Distribution Center
+    </div>
+    <div>
+        <input class="form-check-input" type="radio" name="location" value="Portland, Oregon"> Portland, Oregon Distribution Center
+    </div>
+    <div>
+        <input class="form-check-input" type="radio" name="location" value="San Diego, CA"> San Diego, CA Distribution Center
+    </div>
+    <div>
+        <input class="form-check-input" type="radio" name="location" value="New Orleans, LA"> New Orleans, LA Distribution Center
+    </div>
+    <br>
+    <button class="btn btn-primary"type="submit">Submit</button>
+</form>
 {% endif %}
 
 <!-- FEMA REP SCREEN -->
@@ -31,11 +73,57 @@
   </form>
   
 {% endif %}
+
+<!-- DONOR SCREEN -->
 {% if current_user.role == "Donor" %}
-<p>Donor screen</p>
+<h3 align="center">Make a Donation</h3>
+<form method="POST">
+    <div class="form-group">
+        <div>
+            <label for="item">Item:</label>
+            <select id="item" name="item" class="form-control" required>
+                {% for item in items %}
+                {% if item.requested is not none and item.quantity is not none and item.requested - item.quantity > 0 %}
+                <option value="{{ item.id }}">{{ item.name }} ({{ item.requested - item.quantity }} needed)</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" class="form-control" required>
+        </div>
+        <div align="center">
+            <button type="submit" class="btn btn-primary m-3">Donate Item</button>
+        </div>
+    </div>
+</form>
 {% endif %}
 
+<h3 align="center">Donations Board</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>In Stock</th>
+            <th>Needed</th>
+            <th>Status</th>
+            <th>FEMA Rep</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for item in items %}
+    <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.requested }}</td>
+        <td>{{ item.status }}</td>
+        <td>{{ item.user }}</td>
+    </tr>
+    {% endfor %}
 
+    </tbody>
+</table>
 
 <h3 align="center">Notes</h1>
 <ul class="list-group list-group-flush" id="notes">

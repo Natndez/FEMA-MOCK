@@ -12,28 +12,57 @@ views = Blueprint('views', __name__)
 @login_required
 def home():
     if request.method == 'POST':
-        
-        # TODO: Figure out how to get Notes and Items functioning
-        # note = request.form.get('note')
+        if current_user.role == "FEMA Representative":
+            itemName = request.form.get('name')
+            quantityNeeded = request.form.get('quantity_needed')
 
-        # if len(note) < 1:
-        #     flash('Note is too short!', category='error')
-        # else:
-        #     new_note = Note(data=note, user_id=current_user.id)
-        #     db.session.add(new_note)
-        #     db.session.commit()
-        #     flash('Note added!', category='success')
-        
-        # CODE TO MANIPULATE DATABASE TABLES
-        itemName = request.form.get('name')
-        quantityNeeded = request.form.get('quantity_needed')
+            new_item = Item(name=itemName, quantity=0, requested=quantityNeeded, status="Awaiting Donations", user=current_user.last_name)
+            db.session.add(new_item)
+            db.session.commit()
 
-        new_item = Item(name=itemName, quantity=0, requested=quantityNeeded)
-        db.session.add(new_item)
-        db.session.commit()
+        elif current_user.role == "Donor":
+            item_id = request.form.get('item')
+            quantity = int(request.form.get('quantity'))
 
+            # Retrieve the item from the database
+            item = Item.query.filter_by(id=item_id).first()
 
-    return render_template("home.html", user=current_user) #renders home.html from our templates folder
+            if item:
+                # Update the item's quantity and requested fields
+                item.quantity += quantity
+                if item.requested is not None:
+                    item.requested -= quantity
+                    if item.requested <= 0:
+                        item.requested = 0
+                        item.status = "Awaiting Driver"
+
+                # Commit the changes to the database
+                db.session.commit()
+
+        elif current_user.role == "Driver":
+            item_id = request.form.get('item_id')
+            
+
+            # Retrieve items from database
+            item = Item.query.filter_by(id=item_id).first()
+
+            if item and item.status == "Awaiting Driver":
+                # Update status
+                item.status = "In Transit"
+                db.session.commit()
+
+        # Reload the items from the database
+        items = Item.query.all()
+
+        # Render the template with the updated items
+        return render_template("home.html", user=current_user, items=items)
+
+    # If the request is a GET request, just render the template with the items from the database
+    items = Item.query.all()
+    return render_template("home.html", user=current_user, items=items)
+    
+    
+    
 
 @views.route('/delete-note', methods=['POST'])
 def delete_note():
