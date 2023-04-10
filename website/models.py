@@ -2,6 +2,15 @@ from . import db # Importing from this package (website) (since it is in __init_
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 
+# Database for the donation items
+class Item(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(20))
+    quantity = db.Column(db.Integer)
+    requested = db.Column(db.Integer)
+    
+
+
 # Each user will have notes... they need to be stored in the database so we must design a model
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -10,6 +19,7 @@ class Note(db.Model):
     # Setting up relationship between notes and users using a foreign key
     # References an ID to another database column
     user_id = db.Column(db.Integer, db.ForeignKey('user.id')) # Specifying foreign key means that we must pass an id of an existing user
+    
 
 
 # Creating database model for User info

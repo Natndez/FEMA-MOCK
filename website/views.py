@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required, current_user
-from .models import Note
+from .models import Note, Item
 from . import db
 import json
 
@@ -12,15 +12,27 @@ views = Blueprint('views', __name__)
 @login_required
 def home():
     if request.method == 'POST':
-        note = request.form.get('note')
+        
+        # TODO: Figure out how to get Notes and Items functioning
+        # note = request.form.get('note')
 
-        if len(note) < 1:
-            flash('Note is too short!', category='error')
-        else:
-            new_note = Note(data=note, user_id=current_user.id)
-            db.session.add(new_note)
-            db.session.commit()
-            flash('Note added!', category='success')
+        # if len(note) < 1:
+        #     flash('Note is too short!', category='error')
+        # else:
+        #     new_note = Note(data=note, user_id=current_user.id)
+        #     db.session.add(new_note)
+        #     db.session.commit()
+        #     flash('Note added!', category='success')
+        
+        # CODE TO MANIPULATE DATABASE TABLES
+        itemName = request.form.get('name')
+        quantityNeeded = request.form.get('quantity_needed')
+
+        new_item = Item(name=itemName, quantity=0, requested=quantityNeeded)
+        db.session.add(new_item)
+        db.session.commit()
+
+
     return render_template("home.html", user=current_user) #renders home.html from our templates folder
 
 @views.route('/delete-note', methods=['POST'])

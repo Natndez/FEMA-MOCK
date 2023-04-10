@@ -2,8 +2,42 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} 
 
 {% block content %}
-<h2>User Role: {{ current_user.role }}</h2>
-<h1 align="center">Notes</h1>
+<h2>{{ current_user.role }} Home</h2>
+{% if current_user.role == "Worker" %}
+<p>Worker screen</p>
+{% endif %}
+{% if current_user.role == "Driver" %}
+<p>Driver screen</p>
+{% endif %}
+
+<!-- FEMA REP SCREEN -->
+{% if current_user.role == "FEMA Representative" %}
+<h3 align="center">Request Donation</h3>
+<form method="POST">
+    <div class="form-group">
+        <div>
+            <label for="name">Item Name:</label>
+            <input type="text" id="name" name="name" class="form-control" required>
+        </div>
+        <div>
+            <label for="quantity_needed">Quantity Needed:</label>
+            <input type="number" id="quantity_needed" name="quantity_needed" class="form-control" required>
+        </div>
+        <div align="center">
+            <button type="submit" class="btn btn-primary m-3">Request Item</button>
+        </div>
+        
+    </div>
+  </form>
+  
+{% endif %}
+{% if current_user.role == "Donor" %}
+<p>Donor screen</p>
+{% endif %}
+
+
+
+<h3 align="center">Notes</h1>
 <ul class="list-group list-group-flush" id="notes">
     {% for note in user.notes %}
     <li class="list-group-item">{{ note.data }}
