@@ -51,6 +51,16 @@ def home():
                 item.status = "In Transit"
                 db.session.commit()
 
+        elif current_user.role == "Worker":
+            item_id = request.form.get('item_id')
+
+            item = Item.query.filter_by(id=item_id).first()
+
+            if item and item.status == "In Transit":
+
+                item.status = "Delivered"
+                db.session.commit()
+
         # Reload the items from the database
         items = Item.query.all()
 

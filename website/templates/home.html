@@ -12,7 +12,19 @@
 
 <h2>{{ current_user.role }} Home</h2>
 {% if current_user.role == "Worker" %}
-<p>Worker screen</p>
+<form method="POST">
+    <h3>Items Scheduled to Arrive:</h3>
+    <select class="form-select" name="item_id">
+        {% for item in items %}
+            {% if item.status == "In Transit" %}
+                <option value="{{ item.id }}">{{ item.name }} - {{ item.quantity }} total</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+    <br><br>
+    <p>Hello <strong>{{ user.first_name }},</strong> please select the items that have been delivered.</p>
+    <button class="btn btn-primary"type="submit">Submit</button>
+</form>
 {% endif %}
 
 <!-- DRIVER SCREEN -->
